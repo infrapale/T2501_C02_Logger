@@ -30,10 +30,12 @@ Sensor Radio Message:   {"Z":"OD_1","S":"Temp","V":23.1,"R":"-"}
 #include "rfm69.h"
 #include "rfm_send.h"
 #include "io.h"
-#include "xi2c.h"
 #include "sensor.h"
 #include "watchdog.h"
 #include "show.h"
+#include "rtc_time.h"
+#include "logger.h"
+
 
 //*********************************************************************************************
 #define SERIAL_BAUD   9600
@@ -62,11 +64,11 @@ void setup()
     //while (!Serial); // wait until serial console is open, remove if not tethered to computer
     delay(2000);
     Serial.begin(9600);
-    Serial.print(F("T2412_RFM_Sensor_LowPower")); Serial.print(F(" Compiled: "));
+    Serial.print(F("T2501_CO2_Logger_RFM69_MiniTFT")); Serial.print(F(" Compiled: "));
     Serial.print(F(__DATE__)); Serial.print(F(" "));
     Serial.print(F(__TIME__)); Serial.println();
     Serial.flush();
-    // watchdog_initialize();
+    watchdog_initialize(8000);
     #ifdef  ADA_M0_RFM69
         SerialX.begin(9600);
     #endif
@@ -75,20 +77,15 @@ void setup()
     // Serial.println(F("sensor_initialize() is ready"));
     Wire.begin();
 
-    #ifdef SLEEP_CTRL
-      xi2c_initialize(SLEEP_CTRL_I2C_ADDR);
-      delay(10);
-      xi2c_set_wd_timeout(60000);
-      delay(10);
-    #endif
-
+    
     Wire.begin();
-
-    watchdog_clear_local();
     rfm69_initialize();
     initialize_tasks();
     sensor_initialize();
     show_initialize();
+    rtc_time_initialize();
+    logger_initialize();
+   
     Serial.println(F("Setup() is ready"));
 }
 

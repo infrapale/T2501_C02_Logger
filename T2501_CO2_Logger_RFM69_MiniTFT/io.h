@@ -20,7 +20,7 @@
 // ADALOGGER
 // TFT SPI: MOSI, MISO, SCK
 // RTC I2C: SCL,SDA Addr = 
-#define LOGGER_SD_CS  6 
+#define LOGGER_SD_CS  10 
 
 #endif
 

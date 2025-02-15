@@ -12,12 +12,12 @@ https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-temperature-sensor-gui
 #include "Adafruit_BME680.h"
 #include <Adafruit_SCD30.h>
 #include <Adafruit_PCT2075.h>
-#include "xi2c.h"
 #include "json.h"
 #include "rfm_send.h"
 #include "Adafruit_MCP9808.h"
 #include "Adafruit_VEML7700.h"
 #include "io.h"
+#include "logger.h"
 
 
 // Create the MCP9808 temperature sensor object
@@ -488,6 +488,7 @@ void sensor_read_all(void)
             #endif
         }
     }
+    logger_do_log();
 }
 
 void sensor_print_value(uint8_t sindx, uint8_t vindx)

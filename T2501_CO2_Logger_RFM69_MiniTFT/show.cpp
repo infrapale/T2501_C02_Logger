@@ -15,6 +15,7 @@ Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS,  TFT_DC, TFT_RST);
 typedef struct
 {
     uint8_t task_indx;
+    uint32_t btn_bm[2];
 } show_st;
 
 extern   sensor_st sensor[]; 
@@ -78,4 +79,11 @@ void show_task(void)
     sprintf(buff, "%s %.1f",sensor[0].values[i].label,sensor[0].values[i].value);
     show_text(0,row_pos[i],2,row_color[i], buff);
   } 
+  //show.btn_bm[0] = ss.readButtons();
+  //Serial.printf("BTN: %X\n",show.btn_bm[0] );
+  // TFTWING_BUTTON_UP, TFTWING_BUTTON_DOWN, TFTWING_BUTTON_LEFT,
+  //   TFTWING_BUTTON_RIGHT, TFTWING_BUTTON_A, TFTWING_BUTTON_B,
+  //   TFTWING_BUTTON_SELECT;
+
 }
+
